@@ -5,6 +5,7 @@ import { delay } from "../../src/utils";
 import { BASE_NODE_PORT } from "../../src/config";
 import { getNodesState, reachedFinality } from "./utils";
 import { Value } from "../../src/types";
+import * as console from "console";
 
 function generateRandomValue() {
   return Math.round(Math.random()) as 0 | 1;
@@ -160,12 +161,12 @@ describe("Ben-Or decentralized consensus algorithm", () => {
 
       for (let index = 0; index < states.length; index++) {
         const state = states[index];
-
         if (faultyArray[index]) {
           expect(state.decided).toBeNull();
           expect(state.x).toBeNull();
           expect(state.k).toBeNull();
         } else {
+          console.log("---------STATES", state);
           expect(state.decided).toBeTruthy();
           expect(state.x).toBe(1);
           expect(state.k).toBeLessThanOrEqual(2);
